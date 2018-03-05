@@ -5,8 +5,10 @@ then
   exit 1
 fi
 
-np=`grep -c ^processor /proc/cpuinfo`
-#np=8
+npt=`grep -c ^processor /proc/cpuinfo`
+#npt=8
+np="$(($npt / 2))"
+
 rm -f temp.txt
 
 for i in  `seq 1 $np`; do
