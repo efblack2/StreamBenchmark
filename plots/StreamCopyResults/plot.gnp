@@ -23,6 +23,7 @@ set grid
 
 set xlabel "Number of Processors/Threads"
 set ylabel "Rate MB/s"
+set xrange [0:]
 set yrange [0:]
      
 set title plotTitle
