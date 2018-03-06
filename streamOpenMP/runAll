@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+cd buildGnu/
 make clean; make; ../runTest.sh gnu
 cd ../../streamMPI_sm/buildGnu/
 make clean; make; ../runTest.sh gnu
