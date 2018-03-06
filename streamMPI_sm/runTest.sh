@@ -6,8 +6,8 @@ then
 fi
 
 npt=`grep -c ^processor /proc/cpuinfo`
-#npt=8
-np="$(($npt / 2))"
+np=$npt
+#np="$(($npt / 2))"
 rm -f temp.txt
 
 for i in  `seq 1 $np`; do
