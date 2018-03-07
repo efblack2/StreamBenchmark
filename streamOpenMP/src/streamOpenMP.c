@@ -47,7 +47,6 @@
 # include <float.h>
 # include <limits.h>
 # include <sys/time.h>
-
 /*-----------------------------------------------------------------------
  * INSTRUCTIONS:
  *
@@ -182,7 +181,6 @@ static STREAM_TYPE	a[STREAM_ARRAY_SIZE+OFFSET],
 			b[STREAM_ARRAY_SIZE+OFFSET],
 			c[STREAM_ARRAY_SIZE+OFFSET];
 */
-
 static double	avgtime[4] = {0}, maxtime[4] = {0},
 		mintime[4] = {FLT_MAX,FLT_MAX,FLT_MAX,FLT_MAX};
 
@@ -224,8 +222,6 @@ main()
     a = (STREAM_TYPE *) malloc( (STREAM_ARRAY_SIZE+OFFSET) * sizeof(STREAM_TYPE));
     b = (STREAM_TYPE *) malloc( (STREAM_ARRAY_SIZE+OFFSET) * sizeof(STREAM_TYPE));
     c = (STREAM_TYPE *) malloc( (STREAM_ARRAY_SIZE+OFFSET) * sizeof(STREAM_TYPE));
-    
-    
 
     /* --- SETUP --- determine precision and check timing --- */
 
@@ -387,13 +383,7 @@ main()
     /* --- Check Results --- */
     checkSTREAMresults(a,b,c);
     printf(HLINE);
-
-    free(a);
-    free(b);
-    free(c);
-
-
-
+    free(a);free(b);free(c);
     return 0;
 }
 
