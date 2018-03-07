@@ -1,20 +1,20 @@
 #!/bin/bash
 
 cd buildGnu/
-make clean; make; ../runTest1Socket.sh gnu
+make clean; make; ../runTest1Socket.sh gnu $2
 cd ../../streamMPI_sm/buildGnu/
-make clean; make; ../runTest1Socket.sh gnu
+make clean; make; ../runTest1Socket.sh gnu $2
 
 cd ../../streamOpenMP/buildIntel/
 source setIcc intel64; source setImpi
-make clean; make; ../runTest1Socket.sh intel
+make clean; make; ../runTest1Socket.sh intel $2
 cd ../../streamMPI_sm/buildIntel/
-make clean; make; ../runTest1Socket.sh intel
+make clean; make; ../runTest1Socket.sh intel $2
 
 
 cd ../../streamOpenMP/buildPgi/
 source setPgi 18.1; source setPgiMpi 18.1
-make clean; make; ../runTest1Socket.sh pgi
+make clean; make; ../runTest1Socket.sh pgi $2
 cd ../../streamMPI_sm/buildPgi/
-make clean; make; ../runTest1Socket.sh pgi
+make clean; make; ../runTest1Socket.sh pgi $2
 
