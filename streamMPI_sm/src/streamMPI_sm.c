@@ -225,10 +225,6 @@ int main(int argc, char *argv[])
     MPI_Comm_rank(sm_comm,&myWorldRank);
     MPI_Comm_size(sm_comm,&worldSize);
 
-    //int mySharedRank,sharedSize;
-    //MPI_Comm_rank(sm_comm,&mySharedRank);
-    //MPI_Comm_size(sm_comm,&sharedSize);
-
     STREAM_TYPE	*a;
     STREAM_TYPE	*b;
     STREAM_TYPE	*c;
