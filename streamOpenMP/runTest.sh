@@ -12,8 +12,8 @@ else
 fi
 
 npt=`grep -c ^processor /proc/cpuinfo`
-np=$npt
-#np="$(($npt / 2))"
+#np=$npt
+np="$(($npt / 2))"
 rm -f temp.txt
 for i in  `seq 1 $np`; do
     echo number of threads: $i

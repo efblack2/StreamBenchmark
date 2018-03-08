@@ -26,7 +26,7 @@ done
 mkdir -p ../../plots/StreamCopyResults/$(hostname)-1Socket/$1
 
 
-cat temp.txt | grep "$test:\|counted" | awk -v myTest=$test: ' BEGIN {i=0;j=0}   { if ($4 == "counted") np[i++]=$6;  if ($1 == myTest)rate[j++]=$2;}   END {for (j=0; j<i; ++j) printf("%d %.1f\n",  np[j], rate[j])}' > > ../../plots/StreamCopyResults/$(hostname)-1Socket/$1/streamMPI_sm_$test.dat
+cat temp.txt | grep "$test:\|counted" | awk -v myTest=$test: ' BEGIN {i=0;j=0}   { if ($4 == "counted") np[i++]=$6;  if ($1 == myTest)rate[j++]=$2;}   END {for (j=0; j<i; ++j) printf("%d %.1f\n",  np[j], rate[j])}' > ../../plots/StreamCopyResults/$(hostname)-1Socket/$1/streamMPI_sm_$test.dat
 
 rm temp.txt
 
