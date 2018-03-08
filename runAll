@@ -1,31 +1,20 @@
 #!/bin/bash
-if [ "$#" -lt 1 ] 
-then
-  echo "Usage: $0 [Copy | Scale | Add | Triad]"
-  exit 1
-fi
-
-if [ -z "$1" ]; then
-    echo 'running and creating Copy: test'
-else
-    echo 'running and creating' $1': test'
-fi
 
 cd streamOpenMP/buildGnu/
-make clean; make; ../runTest.sh gnu $1
+make clean; make; ../runTest.sh gnu 
 cd ../../streamMPI_sm/buildGnu/
-make clean; make; ../runTest.sh gnu $1
+make clean; make; ../runTest.sh gnu 
 
 cd ../../streamOpenMP/buildIntel/
 source setIcc intel64; source setImpi
-make clean; make; ../runTest.sh intel $1
+make clean; make; ../runTest.sh intel
 cd ../../streamMPI_sm/buildIntel/
-make clean; make; ../runTest.sh intel $1
+make clean; make; ../runTest.sh intel
 
 
 cd ../../streamOpenMP/buildPgi/
 source setPgi 18.1; source setPgiMpi 18.1
-make clean; make; ../runTest.sh pgi $1
+make clean; make; ../runTest.sh pgi 
 cd ../../streamMPI_sm/buildPgi/
-make clean; make; ../runTest.sh pgi $1
+make clean; make; ../runTest.sh pgi 
 
