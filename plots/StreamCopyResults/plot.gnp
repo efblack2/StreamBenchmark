@@ -3,11 +3,12 @@
 # gnuplot -c plot.gnp stout
 #
 machine=ARG1
+test=ARG2
 
 set terminal pdf enhanced
-set output machine.".pdf"
+set output machine. "-".test.".pdf"
 
-plotTitle=machine
+plotTitle=machine."-".test
 
 set style line 1 dt 1 ps 0.6 lc rgb "#ff0000";
 set style line 2 dt 4 ps 0.5 lc rgb "#ff4f00";
@@ -29,10 +30,10 @@ set yrange [0:]
 set title plotTitle
 set label "Stream Copy Benchmark" at graph 0.5, 1.035 center font "Arial,11"
 
-plot machine.'/gnu/streamMPI_sm.dat'   using 1:2 title "Gnu MPI_{sm}"   with linespoints ls 1,\
-     machine.'/gnu/streamOpenMP.dat'   using 1:2 title "Gnu openMP"     with linespoints ls 2,\
-     machine.'/intel/streamMPI_sm.dat' using 1:2 title "Intel MPI_{sm}" with linespoints ls 3,\
-     machine.'/intel/streamOpenMP.dat' using 1:2 title "Intel openMP"   with linespoints ls 4,\
-     machine.'/pgi/streamMPI_sm.dat'   using 1:2 title "Pgi MPI_{sm}"   with linespoints ls 5,\
-     machine.'/pgi/streamOpenMP.dat'   using 1:2 title "Pgi openMP"     with linespoints ls 6 
+plot machine.'/gnu/result.txt'   using 1:2 title "Gnu MPI_{sm}"   with linespoints ls 1,\
+     machine.'/gnu/result.txt'   using 3:4 title "Gnu openMP"     with linespoints ls 2,\
+     machine.'/intel/result.txt' using 1:2 title "Intel MPI_{sm}" with linespoints ls 3,\
+     machine.'/intel/result.txt' using 3:4 title "Intel openMP"   with linespoints ls 4,\
+     machine.'/pgi/result.txt'   using 1:2 title "Pgi MPI_{sm}"   with linespoints ls 5,\
+     machine.'/pgi/result.txt'   using 3:4 title "Pgi openMP"     with linespoints ls 6 
      

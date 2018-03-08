@@ -3,11 +3,12 @@
 # gnuplot -c plot.gnp stout
 #
 machine=ARG1
+test=ARG2
 
 set terminal pdf enhanced
-set output machine."Ratio.pdf"
+set output machine."-".test."Ratio.pdf"
 
-plotTitle=machine
+plotTitle=machine."-".test
 
 set style line 1 dt 1 ps 0.6 lc rgb "#ff0000";
 set style line 2 dt 4 ps 0.5 lc rgb "#ff4f00";
