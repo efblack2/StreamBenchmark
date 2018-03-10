@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "$#" -lt 1 ] 
+if [ "$#" -lt 1 ]
 then
   echo "Usage: $0 compilerName"
   exit 1
@@ -28,5 +28,5 @@ cat temp.txt | grep "Scale:\|counted" | awk ' BEGIN {i=0;j=0}   { if ($4 == "cou
 
 cat temp.txt | grep "Triad:\|counted" | awk ' BEGIN {i=0;j=0}   { if ($4 == "counted") np[i++]=$6;  if ($1 == "Triad:")rate[j++]=$2;}   END {for (j=0; j<i; ++j) printf("%d %.1f\n",  np[j], rate[j])}' > ../../plots/StreamResults/$(hostname)-1Socket/$1/streamOpenMP_Triad.dat
 
-#rm temp.txt
+rm temp.txt
 
