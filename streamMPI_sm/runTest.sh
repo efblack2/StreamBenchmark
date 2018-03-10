@@ -4,13 +4,20 @@ then
   echo "Usage: $0 compilerName"
   exit 1
 fi
+######################################
+# modified due to problem in Blue Waters
+toSkip=
+toSkipM1="$(($toSkip - 1))"
+toSkipP1="$(($toSkip + 1))"
+#####################################
+
 
 npt=`grep -c ^processor /proc/cpuinfo`
 #np=$npt
 np="$(($npt / 2))"
 rm -f temp.txt
 
-for i in  `seq 1 $np`; do
+for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
     echo number of processors: $i
     mpiexec -n $i streamMPI_sm >> temp.txt
 done

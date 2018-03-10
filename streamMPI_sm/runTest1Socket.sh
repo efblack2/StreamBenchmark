@@ -1,9 +1,15 @@
 #!/bin/bash
-if [ "$#" -lt 1 ] 
+if [ "$#" -lt 1 ]
 then
   echo "Usage: $0 compilerName"
   exit 1
 fi
+######################################
+# modified due to problem in Blue Waters
+toSkip=
+toSkipM1="$(($toSkip - 1))"
+toSkipP1="$(($toSkip + 1))"
+#####################################
 
 npt=`grep -c ^processor /proc/cpuinfo`
 #npt=8
@@ -12,7 +18,7 @@ npm1="$(($np - 1))"
 
 rm -f temp.txt
 
-for i in  `seq 1 $np`; do
+for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
     echo number of processors: $i
     mpiexec -n $i taskset -c 0-$npm1 streamMPI_sm >> temp.txt
 done
