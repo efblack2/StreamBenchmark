@@ -5,6 +5,10 @@ then
   exit 1
 fi
 
+# needed by intel openMP in Blue waters
+export KMP_AFFINITY=disabled
+# needed by intel openMP in Blue waters
+
 npt=`grep -c ^processor /proc/cpuinfo`
 #np=$npt
 np="$(($npt / 2))"
