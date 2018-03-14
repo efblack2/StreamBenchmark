@@ -28,7 +28,7 @@ set xrange [0:]
 set yrange [0:]
      
 set title plotTitle
-set label "Stream Benchmark - OpenMP to MPI\_{sm} Ratio" at graph 0.5, 1.035 center font "Arial,11"
+set label "Stream Benchmark - MPI\_{sm} to OpenMP Ratio" at graph 0.5, 1.035 center font "Arial,11"
 
 plot machine.'/gnu/result.txt'   using 1:($2/$4) title "Gnu MPI_{sm}"   with linespoints ls 1,\
      machine.'/intel/result.txt' using 1:($2/$4) title "Intel MPI_{sm}" with linespoints ls 3,\
