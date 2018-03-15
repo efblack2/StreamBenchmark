@@ -14,7 +14,16 @@ toSkipP1="$(($toSkip + 1))"
 
 npt=`grep -c ^processor /proc/cpuinfo`
 #np=$npt
-np="$(($npt / 2))"
+np="$(($npt / 1))"
+
+if [ -n "$LM_LICENSE_FILE" ]; then
+    echo "Pgi Compiler"
+elif [ -n "$INTEL_LICENSE_FILE" ]; then
+    echo "Intel Compiler"
+else
+    echo "Gnu Compiler"
+fi  
+
 rm -f temp.txt
 
 for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
