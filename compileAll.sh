@@ -10,9 +10,9 @@ mkdir -p  streamMPI_sm/buildPgi
 mkdir -p  streamOpenMP/buildPgi
 
 cd streamOpenMP/buildGnu
-cmake .. 
+cmake ..; make
 cd ../../streamMPI_sm/buildGnu
-cmake .. 
+cmake ..; make
 cd ../../
 
 export CC=icc
@@ -21,9 +21,9 @@ source setIcc intel64
 source setImpi
 
 cd streamOpenMP/buildIntel
-cmake .. 
+cmake ..; make
 cd ../../streamMPI_sm/buildIntel
-cmake .. 
+cmake ..; make
 cd ../../
 
 export CC=pgcc
@@ -32,8 +32,8 @@ source setPgi 18.1
 source setPgiMpi 18.10
 
 cd streamOpenMP/buildPgi
-cmake .. 
+cmake ..; make
 cd ../../streamMPI_sm/buildPgi
-cmake .. 
+cmake ..; make
 cd ../../
 
