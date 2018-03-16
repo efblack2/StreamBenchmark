@@ -13,15 +13,25 @@ npm1="$(($np - 1))"
 
 sequence=''
 ##########################################
-for i in  `seq 0 $((npps-1))`; do
-    sequence+=$i' '
-    sequence+=$(($i +  $((np/2))  ))' '
-done
-##########################################
-#for i in `seq 0 $((npm1))`; do
-#    sequence+=$i' '
+#for i in  `seq 0 $((npps-1))`; do
+#    sequence+=$i','
+#    sequence+=$(($i +  $((np/2))  ))','
 #done
 ##########################################
+for i in `seq 0 $((npm1))`; do
+    sequence+=$i','
+done
+##########################################
+#for i in `seq 0 2 $((npm1))`; do
+#    sequence+=$i','
+#done
+#for i in `seq 1 2 $((npm1))`; do
+#    sequence+=$i','
+#done
+##########################################
+
+sequence=${sequence%?}
+echo $sequence
 
 if [ -n "$LM_LICENSE_FILE" ]; then
     echo "Pgi Compiler"
