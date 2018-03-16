@@ -11,15 +11,15 @@ np="$(($npt / 1))"
 npps="$(($np / 2))"
 npm1="$(($np - 1))"
 
-sequance=''
+sequence=''
 ##########################################
 for i in  `seq 0 $((npps-1))`; do
-    sequance+=$i' '
-    sequance+=$(($i +  $((np/2))  ))' '
+    sequence+=$i' '
+    sequence+=$(($i +  $((np/2))  ))' '
 done
 ##########################################
 #for i in `seq 0 $((npm1))`; do
-#    sequance+=$i' '
+#    sequence+=$i' '
 #done
 ##########################################
 
@@ -27,7 +27,7 @@ if [ -n "$LM_LICENSE_FILE" ]; then
     echo "Pgi Compiler"
     MP_BIND="yes"
     #MP_BLIST="0-$npm1"
-    MP_BLIST=$sequance
+    MP_BLIST=$sequence
     echo $MP_BLIST
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
@@ -37,7 +37,7 @@ elif [ -n "$INTEL_LICENSE_FILE" ]; then
 else
     echo "Gnu Compiler"
     #GOMP_CPU_AFFINITY="0-$npm1"
-    GOMP_CPU_AFFINITY=$sequance
+    GOMP_CPU_AFFINITY=$sequence
     echo $GOMP_CPU_AFFINITY
 fi  
 
