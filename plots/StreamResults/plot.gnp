@@ -28,7 +28,7 @@ set xrange [0:]
 set yrange [0:]
      
 set title plotTitle
-set label "Stream Copy Benchmark" at graph 0.5, 1.035 center font "Arial,11"
+set label "Stream Benchmark" at graph 0.5, 1.035 center font "Arial,11"
 
 plot machine.'/gnu/result.txt'   using 1:2 title "Gnu MPI_{sm}"   with linespoints ls 1,\
      machine.'/gnu/result.txt'   using 3:4 title "Gnu openMP"     with linespoints ls 2,\
