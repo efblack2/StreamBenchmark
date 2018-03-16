@@ -42,12 +42,14 @@ if [ -n "$LM_LICENSE_FILE" ]; then
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
     export OMP_PLACES=sockets
+    export OMP_PROC_BIND=true
     #export KMP_AFFINITY=scatter
     # needed to use dissabled in Blue waters
     #export KMP_AFFINITY=disabled
 else
     echo "Gnu Compiler"
     export OMP_PLACES=sockets
+    export OMP_PROC_BIND=true
     #GOMP_CPU_AFFINITY="0-$npm1"
 fi  
 
