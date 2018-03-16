@@ -20,14 +20,14 @@ npm1="$(($np - 1))"
 
 sequence=''
 ##########################################
-#for i in  `seq 0 $((npps-1))`; do
-#    sequence+=$i','
-#    sequence+=$(($i +  $((np/2))  ))','
-#done
-##########################################
-for i in `seq 0 $((npm1))`; do
+for i in  `seq 0 $((npps-1))`; do
     sequence+=$i','
+    sequence+=$(($i +  $((np/2))  ))','
 done
+##########################################
+#for i in `seq 0 $((npm1))`; do
+#    sequence+=$i','
+#done
 ##########################################
 #for i in `seq 0 2 $((npm1))`; do
 #    sequence+=$i','
