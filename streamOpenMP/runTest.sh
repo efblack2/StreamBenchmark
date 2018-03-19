@@ -7,7 +7,8 @@ fi
 
 npt=`grep -c ^processor /proc/cpuinfo`
 sockets=`lscpu | grep Socket | awk '{}{print $2}{}'`
-np="$(($npt / 1))"
+tpc=`lscpu | grep -i thread | awk '{}{print $4}{}'`
+np="$(($npt / $tpc))"
 npps="$(($np / $sockets))"
 npm1="$(($np - 1))"
 
