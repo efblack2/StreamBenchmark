@@ -13,9 +13,9 @@ toSkipP1="$(($toSkip + 1))"
 
 
 npt=`grep -c ^processor /proc/cpuinfo`
-#np=$npt
 np="$(($npt / 1))"
-npps="$(($np / 2))"
+slots=`numactl -H | grep available | awk '{}{print $2}{}'`
+npps="$(($np / $slots))"
 npm1="$(($np - 1))"
 
 sequence=''
