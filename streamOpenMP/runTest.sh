@@ -6,11 +6,10 @@ then
 fi
 
 npt=`grep -c ^processor /proc/cpuinfo`
+sockets=`lscpu | grep Socket | awk '{}{print $2}{}'`
 np="$(($npt / 1))"
-slots=`numactl -H | grep available | awk '{}{print $2}{}'`
-npps="$(($np / $slots))"
+npps="$(($np / $sockets))"
 npm1="$(($np - 1))"
-
 
 sequence=''
 ##########################################
