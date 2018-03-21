@@ -29,7 +29,7 @@ cd ../../
 export CC=pgcc
 export CXX=pgc++
 source setPgi 18.1
-source setPgiMpi 18.10
+source setPgiMpi 18.1
 
 cd streamOpenMP/buildPgi
 cmake ..; make
