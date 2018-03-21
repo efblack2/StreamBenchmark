@@ -42,7 +42,7 @@ done
 
 #echo ${seqArray[*]}
 
-if [ -n "$LM_LICENSE_FILE" ]; then
+if [ -n "$PGI" ]; then
     echo "Pgi Compiler"
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"

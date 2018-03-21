@@ -45,7 +45,7 @@ for p in `seq 0 $((  npm1  ))`; do
 done
 sequence=${sequence%?}
 
-if [ -n "$LM_LICENSE_FILE" ]; then
+if [ -n "$PGI" ]; then
     echo "Pgi Compiler"
     export MP_BIND="yes"
     export MP_BLIST=$sequence
