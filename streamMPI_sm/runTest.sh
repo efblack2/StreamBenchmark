@@ -13,21 +13,23 @@ toSkipP1="$(($toSkip + 1))"
 
 
 npt=`grep -c ^processor /proc/cpuinfo`
-sockets=`lscpu | grep Socket | awk '{}{print $2}{}'`
-tpc=`lscpu | grep -i thread | awk '{}{print $4}{}'`
+numaNodes=`lscpu | grep "NUMA node(s):" | awk '{}{print $3}{}'`
+tpc=`lscpu | grep "Thread(s) per core:" | awk '{}{print $4}{}'`
 np="$(($npt / $tpc))"
-npps="$(($np / $sockets))"
+npps="$(($np / $numaNodes))"
 npm1="$(($np - 1))"
 
-sequence=''
+
+seqArray=()
 ##########################################
 for i in  `seq 0 $((npps-1))`; do
-    sequence+=$i','
-    sequence+=$(($i +  $((np/2))  ))','
+    for j in `seq 0 $((numaNodes-1))`; do
+        seqArray[i*$numaNodes+j]=$((i+j*npps))
+    done
 done
 ##########################################
 #for i in `seq 0 $((npm1))`; do
-#    sequence+=$i','
+#    seqArray[i]=$i
 #done
 ##########################################
 #for i in `seq 0 2 $((npm1))`; do
@@ -38,8 +40,7 @@ done
 #done
 ##########################################
 
-sequence=${sequence%?}
-echo $sequence
+#echo ${seqArray[*]}
 
 if [ -n "$LM_LICENSE_FILE" ]; then
     echo "Pgi Compiler"
@@ -52,8 +53,14 @@ fi
 rm -f temp.txt
 
 for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
-    echo number of processors: $i
-    mpiexec -n $i streamMPI_sm >> temp.txt
+    pId=$((i-1))
+    sequence=''
+    for p in `seq 0 $((pId))`; do
+        sequence+=${seqArray[p]}','
+    done
+    sequence=${sequence%?}
+    echo number of processors: $i 
+    mpiexec -n $i taskset -c $sequence  streamMPI_sm >> temp.txt
 done
 
 mkdir -p ../../plots/StreamResults/$(hostname)/$1

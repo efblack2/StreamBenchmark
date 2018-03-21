@@ -5,15 +5,16 @@ make clean; make; ../runTest.sh gnu
 cd ../../streamMPI_sm/buildGnu/
 make clean; make; ../runTest.sh gnu 
 
-cd ../../streamOpenMP/buildIntel/
 source setIcc intel64; source setImpi
+
+cd ../../streamOpenMP/buildIntel/
 make clean; make; ../runTest.sh intel
 cd ../../streamMPI_sm/buildIntel/
 make clean; make; ../runTest.sh intel
 
+source setPgi 18.1; source setPgiMpi 18.1
 
 cd ../../streamOpenMP/buildPgi/
-source setPgi 18.1; source setPgiMpi 18.1
 make clean; make; ../runTest.sh pgi 
 cd ../../streamMPI_sm/buildPgi/
 make clean; make; ../runTest.sh pgi 

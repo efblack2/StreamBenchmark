@@ -4,23 +4,30 @@ then
   echo "Usage: $0 compilerName"
   exit 1
 fi
+######################################
+# modified due to problem in Blue Waters
+toSkip=
+toSkipM1="$(($toSkip - 1))"
+toSkipP1="$(($toSkip + 1))"
+#####################################
 
 npt=`grep -c ^processor /proc/cpuinfo`
-sockets=`lscpu | grep Socket | awk '{}{print $2}{}'`
-tpc=`lscpu | grep -i thread | awk '{}{print $4}{}'`
+numaNodes=`lscpu | grep "NUMA node(s):" | awk '{}{print $3}{}'`
+tpc=`lscpu | grep "Thread(s) per core:" | awk '{}{print $4}{}'`
 np="$(($npt / $tpc))"
-npps="$(($np / $sockets))"
+npps="$(($np / $numaNodes))"
 npm1="$(($np - 1))"
 
-sequence=''
+seqArray=()
 ##########################################
 for i in  `seq 0 $((npps-1))`; do
-    sequence+=$i','
-    sequence+=$(($i +  $((np/2))  ))','
+    for j in `seq 0 $((numaNodes-1))`; do
+        seqArray[i*$numaNodes+j]=$((i+j*npps))
+    done
 done
 ##########################################
 #for i in `seq 0 $((npm1))`; do
-#    sequence+=$i','
+#    seqArray[i]=$i
 #done
 ##########################################
 #for i in `seq 0 2 $((npm1))`; do
@@ -31,8 +38,13 @@ done
 #done
 ##########################################
 
+#echo ${seqArray[*]}
+sequence=''
+for p in `seq 0 $((  npm1  ))`; do
+    sequence+=${seqArray[p]}','
+done
 sequence=${sequence%?}
-echo $sequence
+
 if [ -n "$LM_LICENSE_FILE" ]; then
     echo "Pgi Compiler"
     export MP_BIND="yes"
@@ -55,7 +67,7 @@ else
 fi
 
 rm -f temp.txt
-for i in  `seq 1 $np`; do
+for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
     echo number of threads: $i
     export OMP_NUM_THREADS=$i
     streamOpenMP >> temp.txt
