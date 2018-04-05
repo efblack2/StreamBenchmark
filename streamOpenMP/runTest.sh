@@ -58,9 +58,9 @@ elif [ -n "$INTEL_LICENSE_FILE" ]; then
 else
     echo "Gnu Compiler"
     export OMP_PROC_BIND=spread
-    export OMP_PLACES=cores
+    export OMP_PLACES=sockets
+    #export OMP_PROC_BIND=true
     #export GOMP_CPU_AFFINITY=$sequence
-    #export GOMP_CPU_AFFINITY="0-$npm1"
 fi
 
 rm -f temp.txt
