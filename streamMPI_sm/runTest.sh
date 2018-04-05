@@ -4,12 +4,22 @@ then
   echo "Usage: $0 compilerName"
   exit 1
 fi
-######################################
-# modified due to problem in Blue Waters
-toSkip=
-toSkipM1="$(($toSkip - 1))"
-toSkipP1="$(($toSkip + 1))"
-#####################################
+
+# Determining MPI implementation and binding options #
+MPI=`mpiexec --version | head -1 | awk '{print $1}' ` 
+
+if [ "$MPI" == "HYDRA" ]; then
+    echo "MPICH"
+    bindings="--bind-to socket"
+    export HYDRA_TOPO_DEBUG=1
+elif [ "$MPI" == "Intel(R)" ]; then
+    echo "Intel MPI"
+    bindings="-genv I_MPI_PIN_DOMAIN=core -genv I_MPI_PIN_ORDER=scatter -genv I_MPI_DEBUG=4"
+elif [ "$MPI" == "mpiexec" ]; then
+    echo "open-mpi"
+    bindings="--bind-to core --report-bindings"
+fi
+# end of Determining MPI implementation and binding options #
 
 
 npt=`grep -c ^processor /proc/cpuinfo`
@@ -19,48 +29,22 @@ np="$(($npt / $tpc))"
 npps="$(($np / $numaNodes))"
 npm1="$(($np - 1))"
 
-
-seqArray=()
-##########################################
-for i in  `seq 0 $((npps-1))`; do
-    for j in `seq 0 $((numaNodes-1))`; do
-        seqArray[i*$numaNodes+j]=$((i+j*npps))
-    done
-done
-##########################################
-#for i in `seq 0 $((npm1))`; do
-#    seqArray[i]=$i
-#done
-##########################################
-#for i in `seq 0 2 $((npm1))`; do
-#    sequence+=$i','
-#done
-#for i in `seq 1 2 $((npm1))`; do
-#    sequence+=$i','
-#done
-##########################################
-
-#echo ${seqArray[*]}
-
 if [ -n "$PGI" ]; then
     echo "Pgi Compiler"
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
+    #np=15
+    #npps="$(($np / $numaNodes))"
+    #npm1="$(($np - 1))"
 else
     echo "Gnu Compiler"
-fi  
+fi
 
 rm -f temp.txt
 
-for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
-    pId=$((i-1))
-    sequence=''
-    for p in `seq 0 $((pId))`; do
-        sequence+=${seqArray[p]}','
-    done
-    sequence=${sequence%?}
+for i in 1 `seq 2 2 $np`; do
     echo number of processors: $i 
-    mpiexec -n $i taskset -c $sequence  streamMPI_sm >> temp.txt
+    mpiexec $bindings -n $i streamMPI_sm >> temp.txt
 done
 
 mkdir -p ../../plots/StreamResults/$(hostname)/$1

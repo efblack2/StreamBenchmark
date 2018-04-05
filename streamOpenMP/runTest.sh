@@ -4,12 +4,6 @@ then
   echo "Usage: $0 compilerName"
   exit 1
 fi
-######################################
-# modified due to problem in Blue Waters
-toSkip=
-toSkipM1="$(($toSkip - 1))"
-toSkipP1="$(($toSkip + 1))"
-#####################################
 
 npt=`grep -c ^processor /proc/cpuinfo`
 numaNodes=`lscpu | grep "NUMA node(s):" | awk '{}{print $3}{}'`
@@ -44,30 +38,33 @@ for p in `seq 0 $((  npm1  ))`; do
     sequence+=${seqArray[p]}','
 done
 sequence=${sequence%?}
-
+export OMP_DISPLAY_ENV=true
 if [ -n "$PGI" ]; then
     echo "Pgi Compiler"
-    export MP_BIND="yes"
     export MP_BLIST=$sequence
+    export MP_BIND="yes"
     #export MP_BLIST="0-$npm1"
     echo $MP_BLIST
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
-    export OMP_PLACES=sockets
-    export OMP_PROC_BIND=true
+    #np=15
+    #npps="$(($np / $numaNodes))"
+    #npm1="$(($np - 1))"
+    export OMP_PROC_BIND=spread
+    export OMP_PLACES=cores
     #export KMP_AFFINITY=scatter
     # needed to use dissabled in Blue waters
     #export KMP_AFFINITY=disabled
 else
     echo "Gnu Compiler"
-    #export OMP_PLACES=sockets
-    #export OMP_PROC_BIND=true
-    export GOMP_CPU_AFFINITY=$sequence
+    export OMP_PROC_BIND=spread
+    export OMP_PLACES=cores
+    #export GOMP_CPU_AFFINITY=$sequence
     #export GOMP_CPU_AFFINITY="0-$npm1"
 fi
 
 rm -f temp.txt
-for i in  `seq 1 $toSkipM1`  `seq $toSkipP1 $np` ; do
+for i in 1 `seq 2 2 $np`; do
     echo number of threads: $i
     export OMP_NUM_THREADS=$i
     streamOpenMP >> temp.txt
