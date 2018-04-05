@@ -42,7 +42,7 @@ fi
 
 rm -f temp.txt
 
-for i in 1 `seq 2 2 $np`; do
+for i in 1 `seq 2 1 $np`; do
     echo number of processors: $i 
     mpiexec $bindings -n $i streamMPI_sm >> temp.txt
 done

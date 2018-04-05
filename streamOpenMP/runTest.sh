@@ -64,7 +64,7 @@ else
 fi
 
 rm -f temp.txt
-for i in 1 `seq 2 2 $np`; do
+for i in 1 `seq 2 1 $np`; do
     echo number of threads: $i
     export OMP_NUM_THREADS=$i
     streamOpenMP >> temp.txt
