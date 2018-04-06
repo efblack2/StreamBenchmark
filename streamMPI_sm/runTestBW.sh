@@ -37,17 +37,6 @@ for i in  `seq 0 $((npps-1))`; do
     k=$((k+tpc))
 done
 ##########################################
-#for i in `seq 0 $((npm1))`; do
-#    seqArray[i]=$i
-#done
-##########################################
-#for i in `seq 0 2 $((npm1))`; do
-#    sequence+=$i','
-#done
-#for i in `seq 1 2 $((npm1))`; do
-#    sequence+=$i','
-#done
-##########################################
 
 #echo ${seqArray[*]}
 sequence=''
