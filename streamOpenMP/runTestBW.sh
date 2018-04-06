@@ -35,33 +35,20 @@ sequence=${sequence%?}
 export OMP_DISPLAY_ENV=true
 if [ -n "$PGI" ]; then
     echo "Pgi Compiler"
-    export MP_BLIST=$sequence
-    export MP_BIND="yes"
-    #export MP_BLIST="0-$npm1"
     echo $MP_BLIST
 elif [ -n "$INTEL_LICENSE_FILE" ]; then
     echo "Intel Compiler"
-    #np=15
-    #npps="$(($np / $numaNodes))"
-    #npm1="$(($np - 1))"
-    export OMP_PROC_BIND=spread
-    export OMP_PLACES=$sequence
-    #export KMP_AFFINITY=scatter
     # needed to use dissabled in Blue waters
-    #export KMP_AFFINITY=disabled
+    export KMP_AFFINITY=disabled
 else
     echo "Gnu Compiler"
-    export OMP_PROC_BIND=spread
-    export OMP_PLACES=$sequence
-    #export OMP_PROC_BIND=true
-    #export GOMP_CPU_AFFINITY=$sequence
 fi
 
 rm -f temp.txt
-for i in 1 `seq 2 1 $np`; do
+for i in 1 2 `seq 4 1 $np`; do
     echo number of threads: $i
     export OMP_NUM_THREADS=$i
-    streamOpenMP >> temp.txt
+    aprun -cc $sequence -n 1 -N 1 streamOpenMP >> temp.txt
 done
 
 mkdir -p ../../plots/StreamResults/$(hostname)/$1
