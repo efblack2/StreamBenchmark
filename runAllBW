@@ -1,0 +1,21 @@
+#!/bin/bash
+
+cd streamOpenMP/buildGnu/
+make clean; make -j; ../runTest.sh gnu 
+cd ../../streamMPI_sm/buildGnu/
+make clean; make -j; ../runTestBW.sh gnu 
+
+source setIcc intel64; source setImpi
+
+cd ../../streamOpenMP/buildIntel/
+make clean; make -j; ../runTest.sh intel
+cd ../../streamMPI_sm/buildIntel/
+make clean; make -j; ../runTestBW.sh intel
+
+source setPgi 18.3; source setPgiMpi 18.3
+
+cd ../../streamOpenMP/buildPgi/
+make clean; make -j; ../runTest.sh pgi 
+cd ../../streamMPI_sm/buildPgi/
+make clean; make -j; ../runTestBW.sh pgi 
+
