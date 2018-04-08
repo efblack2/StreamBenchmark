@@ -14,13 +14,6 @@ npps="$(($np / $numaNodes))"
 npm1="$(($np - 1))"
 tps=$((npps*tpc))
 
-if [ -n "$PGI" ]; then
-    echo "Pgi Compiler"
-elif [ -n "$INTEL_LICENSE_FILE" ]; then
-    echo "Intel Compiler"
-else
-    echo "Gnu Compiler"
-fi
 
 seqArray=()
 ##########################################
@@ -43,10 +36,19 @@ done
 sequence=${sequence%?}
 #echo $sequence
 
+if [ -n "$PGI" ]; then
+    echo "Pgi Compiler"
+elif [ -n "$INTEL_LICENSE_FILE" ]; then
+    echo "Intel Compiler"
+else
+    echo "Gnu Compiler"
+fi
+
+
 rm -f temp.txt
 
 for i in 1 2 `seq 4 1 $np`; do
-    echo number of processors: $i 
+    echo number of processors: $i
     aprun  -cc $sequence   -n $i -N $i  streamMPI_sm >> temp.txt
 done
 
