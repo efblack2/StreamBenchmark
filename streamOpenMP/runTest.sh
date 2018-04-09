@@ -59,8 +59,6 @@ else
     echo "Gnu Compiler"
     export OMP_PROC_BIND=spread
     export OMP_PLACES=sockets
-    #export OMP_PROC_BIND=true
-    #export GOMP_CPU_AFFINITY=$sequence
 fi
 
 rm -f temp.txt
