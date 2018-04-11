@@ -31,9 +31,9 @@ set title plotTitle
 set label "Stream Benchmark" at graph 0.5, 1.035 center font "Arial,11"
 
 plot machine.'/gnu/result.txt'   using 1:2 title "Gnu MPI_{sm}"   with linespoints ls 1,\
-     machine.'/gnu/result.txt'   using 3:4 title "Gnu openMP"     with linespoints ls 2,\
+     machine.'/gnu/result.txt'   using 3:4 title "Gnu OpenMP"     with linespoints ls 2,\
      machine.'/intel/result.txt' using 1:2 title "Intel MPI_{sm}" with linespoints ls 3,\
-     machine.'/intel/result.txt' using 3:4 title "Intel openMP"   with linespoints ls 4,\
+     machine.'/intel/result.txt' using 3:4 title "Intel OpenMP"   with linespoints ls 4,\
      machine.'/pgi/result.txt'   using 1:2 title "Pgi MPI_{sm}"   with linespoints ls 5,\
-     machine.'/pgi/result.txt'   using 3:4 title "Pgi openMP"     with linespoints ls 6 
+     machine.'/pgi/result.txt'   using 3:4 title "Pgi OpenMP"     with linespoints ls 6 
      
