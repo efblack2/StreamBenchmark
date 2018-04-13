@@ -8,7 +8,7 @@ test=ARG2
 set terminal pdf enhanced
 set output machine. "-".test.".pdf"
 
-plotTitle=machine."-".test
+plotTitle=test." test in ".machine
 
 set style line 1 dt 1 ps 0.6 lc rgb "#ff0000";
 set style line 2 dt 4 ps 0.5 lc rgb "#ff4f00";
@@ -27,8 +27,8 @@ set ylabel "Rate MB/s"
 set xrange [0:]
 set yrange [0:]
      
-set title plotTitle
-set label "Stream Benchmark" at graph 0.5, 1.035 center font "Arial,11"
+set title "Stream Benchmark"
+set label plotTitle at graph 0.5, 1.035 center font "Arial,11"
 
 plot machine.'/gnu/result.txt'   using 1:2 title "Gnu MPI_{sm}"   with linespoints ls 1,\
      machine.'/gnu/result.txt'   using 3:4 title "Gnu OpenMP"     with linespoints ls 2,\
