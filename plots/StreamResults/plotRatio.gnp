@@ -9,7 +9,7 @@ set terminal pdf enhanced
 set output machine."-".test."Ratio.pdf"
 
 #plotTitle=machine."-".test
-plotTitle=test." test in ".machine
+plotTitle=test." Test in ".machine
 
 
 set style line 1 dt 1 ps 0.6 lc rgb "#ff0000";
@@ -32,7 +32,7 @@ set yrange [0:]
 set title "Stream Benchmark"
 set label plotTitle." - MPI\_{sm} to OpenMP Ratio" at graph 0.5, 1.035 center font "Arial,11"
 
-plot machine.'/gnu/result.txt'   using 1:($2/$4) title "Gnu"   with linespoints ls 1,\
-     machine.'/intel/result.txt' using 1:($2/$4) title "Intel" with linespoints ls 3,\
-     machine.'/pgi/result.txt'   using 1:($2/$4) title "Pgi"     with linespoints ls 5 
+plot machine.'/gnu/result.txt'   using 1:($2/$4) title "Gnu Compiler"   with linespoints ls 1,\
+     machine.'/intel/result.txt' using 1:($2/$4) title "Intel Compiler" with linespoints ls 3,\
+     machine.'/pgi/result.txt'   using 1:($2/$4) title "Pgi Compiler"     with linespoints ls 5 
      
